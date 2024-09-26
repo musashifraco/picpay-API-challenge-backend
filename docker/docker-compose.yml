@@ -1,5 +1,3 @@
-version: '3.8'  # Adiciona a versão do Compose
-
 services:
   mysql:
     image: mysql:8.0  # Especifica a versão 8.0 do MySQL
