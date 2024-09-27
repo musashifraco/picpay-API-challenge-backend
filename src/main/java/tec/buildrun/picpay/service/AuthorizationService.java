@@ -2,6 +2,7 @@ package tec.buildrun.picpay.service;
 
 import org.springframework.stereotype.Service;
 import tec.buildrun.picpay.client.AuthorizationClient;
+import tec.buildrun.picpay.controller.dto.TransferDto;
 import tec.buildrun.picpay.entity.Transfer;
 import tec.buildrun.picpay.exception.PicPayException;
 
@@ -13,7 +14,7 @@ public class AuthorizationService {
         this.authorizationClient = authorizationClient;
     }
 
-    public boolean isAuthorized(Transfer transfer) {
+    public boolean isAuthorized(TransferDto transferDto) {
         var response = authorizationClient.isAuthorized();
 
         if(response.getStatusCode().isError()) {

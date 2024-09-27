@@ -12,6 +12,7 @@ public class Wallet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "full_name")
     private String fullName;
 
     @Column(name = "cpf_cnpj", unique = true)
@@ -28,7 +29,7 @@ public class Wallet {
 
     @ManyToOne
     @JoinColumn(name = "wallet_type_id")
-    private  WalletType walletType;
+    private WalletType walletType;
 
     public Wallet() {
     }
@@ -39,6 +40,22 @@ public class Wallet {
         this.email = email;
         this.password = password;
         this.walletType = walletType;
+    }
+
+    public boolean isTransferAllowedForWalletType() {
+        return this.walletType.equals(WalletType.Enum.USER.get());
+    }
+
+    public boolean isBalancerEqualOrGreatherThan(BigDecimal value) {
+        return this.balance.doubleValue() >= value.doubleValue();
+    }
+
+    public void debit(BigDecimal value) {
+        this.balance = this.balance.subtract(value);
+    }
+
+    public void credit(BigDecimal value) {
+        this.balance = this.balance.add(value);
     }
 
     public Long getId() {
